@@ -4,56 +4,64 @@
  Copyright 2015 Razor TeamB in Ajou univ, All right reserved
  ***************************************************************************************************/
 
-package parsing;
+package businesslogic;
+
+import java.net.Socket;
 
 public class Parsing {
-	public String sample = "013050";//This is sample string(will be deleted when socket message will be received)
-	private String protocol_message = null;
+	private String protocol_header = null;//Header of message
+	private String protocol_body = null;//Body of message
 	
-	private String parsed_message = null;//parsed message will be in this String
+	//private String parsed_header = null;//parsed message of header	
+	private String parsed_body = null;//parsed message of body
 	
-
-	public void ReadMsg(String msg){
-		this.protocol_message = msg;
-		if(this.protocol_message == null)
-			System.out.println("Failed to Read");
-		else
-			System.out.println("Read Success");
-	}//Read protocol message and setting the message!
-
-	public void MessageProcess(){
+	private String set_msg = null;//Message setting
+	
+	
+	public void Set_msg(String msg){
+		this.set_msg = msg;
+	}
+	
+	
+	
+	//Header message processing
+	public void HeaderMessageProcess(Socket socket){
 		String temp = null;
+		
 
 		try{
-			temp = protocol_message.substring(0, 2);//Header analysis part
+			temp = this.set_msg;//Header analysis part
+			//tmep 
 			switch (temp){
-			case "01":
+			case "1":
 				//Do something
 				
-				this.parsed_message = "0100000000";
+				Sender sending = new Sender();//Create instance for Socket stream
+				sending.SenderMsg(socket, "It is Sample");
+				System.out.println("111");				
 				break;
-			case "02":
+			case "2":
 				//Do something
 				
-				this.parsed_message = "0200000000";
+								
 				break;
-			case "03":
-				//Do something
-				
-				break;
-			case "04":
-				//Do something
-				
-				break;
-			case "05":
+			case "3":
 				//Do something
 				
 				break;
-			case "06":
+			case "4":
 				//Do something
 				
 				break;
-			case "07":
+			case "5":
+				//Do something
+				
+				break;
+			case "6":
+				//Do something
+				
+				break;
+			case "7":
 				//Do something
 				
 				break;
@@ -67,7 +75,8 @@ public class Parsing {
 			System.out.println("Error");
 		}
 	}
-	public String getParsedmsg(){
-		return this.parsed_message;
-	}//This message will be sent to SA node
+	
+	public String GetBody(){
+		return this.parsed_body;
+	}
 }
